@@ -1,0 +1,565 @@
+﻿@model Audit.Models.Contact
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_InternetLayout.cshtml";
+}
+
+
+<div class="full-height">
+    <div class="boxtop" >        
+            <h2 class="text-center">Audit/Contract Services</h2>
+            <p class="leftside">This form was set up to allow consultants/contractors to upload Overhead and Certification documnents to the Louisiana Department of Transportantion Consultant Contracts Services and Audit Sections. Please use the controls below to upload your documents to the various sections.</p>
+       
+    </div>
+
+    @using (Html.BeginForm("Index", "home", FormMethod.Post, new { enctype = "multipart/form-data", id = "form-id" }))
+    {
+        @*@Html.AntiForgeryToken()*@
+        <div>
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="text-center">
+                <h3 class="mt-0">Contact Information</h3>
+                <div class="inputWithIcon">
+                    <i class="fa fa-group fa-lg fa-fw" aria-hidden="true"></i>
+                    @Html.EditorFor(model => model.CompanyName, new { htmlAttributes = new { @class = "inputStyle", placeholder = "Organization/Company Name(company’s legal name)" } })
+
+                </div>
+                @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger", })
+
+                <div class="inputWithIcon">
+                    <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
+                    @Html.EditorFor(model => model.ContactPerson, new { htmlAttributes = new { @class = "inputStyle", placeholder = "Contact Person" } })
+
+                </div>
+                @Html.ValidationMessageFor(model => model.ContactPerson, "", new { @class = "text-danger" })
+                <div class="inputWithIcon">
+                    <i class="fa fa-envelope fa-lg fa-fw" aria-hidden="true"></i>
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "inputStyle", placeholder = "Email" } })
+
+                </div>
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                <div class="inputWithIcon">
+                    <i class="fa fa-phone fa-lg fa-fw" aria-hidden="true"></i>
+                    @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "inputStyle", placeholder = "Phone Number(format: xxxxxxxxxx, xxx-xxxxxxx or xxx-xxx-xxxx )" } })
+
+                </div>
+                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+
+                <div class="inputWithIcon">
+                    <i class="fa fa-dollar fa-lg fa-fw" aria-hidden="true"></i>
+                    @Html.EnumDropDownListFor(model => model.Revenue, "Revenue (Please select)", new { @class = "inputStyle" })
+
+                </div>
+                @Html.ValidationMessageFor(model => model.Revenue, "", new { @class = "text-danger" })
+
+                <div class="inputWithIcon">
+                    <i class="fa fa-clock-o fa-lg fa-fw" aria-hidden="true"></i>
+                    @Html.DropDownListFor(model => model.Physicalyear, new List<SelectListItem>
+            {
+                new SelectListItem {Text= DateTime.Today.Year.ToString(), Value=DateTime.Today.Year.ToString()},
+                new SelectListItem {Text= (DateTime.Today.Year+1).ToString(), Value = (DateTime.Today.Year+1).ToString() }
+            }, "Fiscal Year (Please select)", new { @class = "inputStyle" })
+
+                </div>
+                @Html.ValidationMessageFor(model => model.Physicalyear, "", new { @class = "text-danger" })
+
+            </div>
+
+            <h3 class="mt-0 CaptialStyle">Upload the Overhead Forms</h3>
+            <div style="padding:0px 40px">
+                <div class="container border-container text-center" id="overDropZone">
+                    <label class="btn">
+                        <span class="icons fa-4x">
+                            <i class="fa fa-file-image-o"></i>
+                            <i class="fa fa-file-word-o"></i>
+                            <i class="fa fa-file-pdf-o"></i>
+                        </span>
+                        <br />
+                        <span class="firstline" style="font-size:medium">Drag and Drop file here</span>
+                        <br />
+                        <span class="orline" style="font-size:medium">Or</span>
+                        <br />
+                        <span class="secondline" style="font-size:medium">Click here to select file(You can hold the CTRL key to select multiple files)</span>
+                        <input id="overheadfile" type="file" name="overheadfile" multiple="multiple" style="display: none;" />
+                    </label>
+
+                </div>
+            </div>
+            <ul id="OverheadfileList" class="FileListshow leftside container OverheadfileList"></ul>
+
+            <h3 class="mt-0 CaptialStyle">Upload the Certication Forms</h3>
+            <div style="padding:0px 40px">
+                <div class="container border-container text-center" id="cerDropZone">
+                    <label class="btn">
+                        <span class="icons fa-4x">
+                            <i class="fa fa-file-image-o"></i>
+                            <i class="fa fa-file-word-o"></i>
+                            <i class="fa fa-file-pdf-o"></i>
+                        </span>
+                        <br />
+                        <span class="firstline" style="font-size:medium">Drag and Drop file here</span>
+                        <br />
+                        <span class="orline" style="font-size:medium">Or</span>
+                        <br />
+                        <span class="secondline" style="font-size:medium">Click here to select file(You can hold the CTRL key to select multiple files)</span>
+
+                        <input id="certificationfile" type="file" name="certificationfile" multiple="multiple" style="display: none;" />
+                    </label>
+                </div>
+            </div>
+            <ul id="CertificationfileList" class="FileListshow leftside container"></ul>
+        </div>
+
+
+        <div class="text-center">
+            <input class="btn btn-light btn-xl" id="btn-sub" type="button" value="Submit Now">
+        </div>
+    }
+
+    <div class="text-center">
+        <h3 id="wait-Loading" class="wait-Loading" style="display: none;">Processing, please wait....</h3>
+    </div>
+    <div class="text-center">
+        <img src="~/Content/image/progress-bar.gif" id="divLoading" style="display: none;" />
+    </div>
+
+
+
+    <div>
+        <div class="template-tips container">
+            <h4>
+                Instruction:
+            </h4>
+            <p>
+                You can download the template form below and follow the specifications inside.
+            </p>
+            <div>
+                <ol>
+                    <li>
+                        If the company name is changed, please resubmit all your documents.
+                    </li>
+                    <li>
+                        Files must be submitted with proper orientation to ensure proper back up.
+                </ol>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="page-section bg-dark text-white">
+        <div class="text-center">
+            <h4 class="mb-5">You can download the blank form here!</h4>
+            @Html.ActionLink("OverHead Form", "DownloadFile", "home", new { FileItem = "Cost Certification Blank.pdf" }, new { @class = "btn btn-dark btn-xl" })
+            @Html.ActionLink("Certification form", "DownloadFile", "home", new { FileItem = "Indirect Cost Rate Certificate Form 23 cfr 172.docx" }, new { @class = "btn btn-dark btn-xl" })
+        </div>
+    </div>
+
+    <div class="container">
+
+        <div class="text-center">
+            <h3 class="mt-0">Questions?</h3>
+            <h6 class="text-muted">If you have any questions or comments, please contact us!</h6>
+        </div>
+
+        <div class="row contact-info">
+            <div class="col-sm-6 text-center">
+                <i class="fa fa-phone fa-2x mb-3 text-muted"></i>
+                <div>+1 (225) 123-4567</div>
+            </div>
+            <div class="col-sm-6 text-center">
+                <i class="fa fa-envelope fa-2x mb-3 text-muted"></i>
+                <a class="d-block" href="mailto:contact@la.gov">contact@la.gov.com</a>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+
+
+
+    <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Information</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    "Success! A confirmation email has been sent to your mailbox. If you have any question, please call us at phone number: 225-xxx-xxxx or Email: xx@xxx.com"
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="ModalForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalLongTitle">Information</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+    var OverfileLists = [];
+    var CertificationfileLists = [];
+    var formData = new FormData();
+    //var request = new XMLHttpRequest();
+        $('#overheadfile').on('change', function (event) {
+            //var input = document.getElementById('certificationfile');
+            var overfiles = event.target.files;
+            showoverFileName(overfiles);
+        });
+
+    function showoverFileName(overfiles) {
+        //for (var i = 0; i < overfiles.length; i++) {
+            overfiles = Array.prototype.slice.call(overfiles);
+            OverfileLists = OverfileLists.concat(overfiles);
+            //OverfileLists.push(overfiles[i]);
+        //}
+        if (overfiles.length !== 0) {
+            var overhtml = "";
+            for (var i = 0; i < overfiles.length; i++) {
+                overhtml += "<li class='itemsel'>" + overfiles[i].name + "&nbsp&nbsp<img src='/Content/image/delete-icon.png' style='cursor: pointer' alt='Remove it' class='icon-remove'/></li>";
+            }
+            $('#OverheadfileList').append(overhtml);
+        }
+    }
+
+        $('#OverheadfileList').on("click", ".icon-remove", function () {
+            var overind = $(this).parent().index();
+            OverfileLists.splice(overind, 1);
+            $(this).parent().remove();
+        });
+
+
+        $('#certificationfile').on('change', function (event) {
+
+            var cerfiles = event.target.files;
+            showcerFileName(cerfiles);
+
+        });
+
+    function showcerFileName(cerfiles) {
+        //for (var i = 0; i < cerfiles.length; i++) {
+        //    CertificationfileLists.push(cerfiles[i]);
+        //}
+        cerfiles = Array.prototype.slice.call(cerfiles);
+        CertificationfileLists = CertificationfileLists.concat(cerfiles);
+
+        if (cerfiles.length !== 0) {
+            var cerhtml = '';
+            for (var i = 0; i < cerfiles.length; i++) {
+                cerhtml += "<li class='itemsel'>" + cerfiles[i].name + "&nbsp&nbsp<img src='/Content/image/delete-icon.png' style='cursor: pointer' alt='Remove it' class='icon-remove'/></li>";
+            }
+            $('#CertificationfileList').append(cerhtml);
+        }
+
+    }
+
+        $('#CertificationfileList').on("click", ".icon-remove", function () {
+            var cerind = $(this).parent().index();
+            CertificationfileLists.splice(cerind, 1);
+            $(this).parent().remove();
+
+        });
+
+
+    function SaveallInformation() {
+
+            var CompanyName = $('#@Html.IdFor(m=>m.CompanyName)').val();
+            var ContactPerson = $('#@Html.IdFor(m=>m.ContactPerson)').val();
+            var Email= $('#@Html.IdFor(m=>m.Email)').val();
+            var PhoneNumber= $('#@Html.IdFor(m=>m.PhoneNumber)').val();
+            var Revenue= $('#@Html.IdFor(m=>m.Revenue)').val();
+            var Physicalyear= $('#@Html.IdFor(m=>m.Physicalyear)').val();
+            var overcount = 0;
+            var cercount = 0;
+
+
+            formData.append("CompanyName", CompanyName);
+            formData.append("ContactPerson", ContactPerson);
+            formData.append("Email", Email);
+            formData.append("PhoneNumber", PhoneNumber);
+            formData.append("Revenue", Revenue);
+            formData.append("Physicalyear", Physicalyear);
+
+
+
+            OverfileLists.forEach(function (file) {
+                overcount = overcount + 1;
+                sendFile(file);
+            });
+
+            CertificationfileLists.forEach(function (file) {
+                cercount = cercount + 1;
+                sendFile(file);
+            });
+
+            formData.append("overcount", overcount);
+            formData.append("cercount", cercount);
+
+
+            $.ajax({
+                type: "POST",
+                url: "/Home/SaveData",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (mes) {
+                    if (mes == "success") {
+                        //$('#Modal').find('.modal-body').text("Success! A confirmation email has been sent to your mailbox. If you have any question, please call us at phone number: 225-xxx-xxxx or Email: xx@xxx.com");
+                        $('#Modal').modal('show');
+
+                    }
+                    else if (mes == "fail") {
+                        $('#ModalForm').find('.modal-body').text("System error, please try again later! If still don't work, please contact us!");
+                        $('#ModalForm').modal('show');
+                    }
+                 },
+                error: function (err) {
+                    $('#ModalForm').find('.modal-body').text("System error, please try again later! If still don't work, please contact us!");
+                    $('#ModalForm').modal('show');
+                 }
+            });
+        }
+
+
+        $("#Modal").on('hide.bs.modal', function () {
+            OverfileLists = [];
+            CertificationfileLists = [];
+            location.reload(true);
+        });
+
+
+        sendFile = function (file) {
+           formData.append('file', file);
+    };
+
+    $(document).ajaxStart(function () {
+        $("#divLoading").show();
+        $("#wait-Loading").show();
+        $("#btn-sub").hide();
+    });
+
+    $(document).ajaxStop(function () {
+        $("#divLoading").hide();
+        $("#wait-Loading").hide();
+        $("#btn-sub").show();
+    });
+
+        $("#btn-sub").click(function (event) {
+            var form = $("#form-id");
+            var boolover = true;
+            var boolcer = true;
+            event.preventDefault();
+            form.validate();
+            if (form.valid()) {
+                if (OverfileLists.length == 0) {
+                    boolover = false;
+                    $('#ModalForm').find('.modal-body').text("Plesae select at least one Overhead file.");
+                    $('#ModalForm').modal('show');
+                }
+                else if (CertificationfileLists.length == 0) {
+                    boolcer = false;
+                    $('#ModalForm').find('.modal-body').text("Plesae select at least one Certification file.");
+                    $('#ModalForm').modal('show');
+                }
+                else {
+                    var arr = [];
+                    for (var i = 0; i < OverfileLists.length; i++) {
+                        if (arr.indexOf(OverfileLists[i].name) === -1) {
+                            if (Math.round(OverfileLists[i].size / 1024) > 10240) {
+                                $('#ModalForm').find('.modal-body').text(OverfileLists[i].name + " file size is over 10M. Please decrease the file size");
+                                $('#ModalForm').modal('show');
+                                boolcer = false;
+                                break;
+                            }
+                            arr.push(OverfileLists[i].name)
+                        } else {
+                            $('#ModalForm').find('.modal-body').text("There are more than one " + OverfileLists[i].name +" files. Please just keep one of them");
+                            $('#ModalForm').modal('show');
+                            boolover = false;
+                            break;
+                        }
+                    }
+                    for (var i = 0; i < CertificationfileLists.length; i++) {
+                        if (arr.indexOf(CertificationfileLists[i].name) === -1) {
+                            if (Math.round(CertificationfileLists[i].size / 1024) > 10240) {
+                                $('#ModalForm').find('.modal-body').text(CertificationfileLists[i].name + " file size is over 10M. Please decrease the file size");
+                                $('#ModalForm').modal('show');
+                                boolcer = false;
+                                break;
+                            }
+                            arr.push(CertificationfileLists[i].name)
+                        }
+                        else {
+                            $('#ModalForm').find('.modal-body').text("There are more than one " + CertificationfileLists[i].name + " files. Please just keep one one of them");
+                            $('#ModalForm').modal('show');
+                            boolcer = false;
+                            break;
+                        }
+                    }
+                    if (boolover && boolcer) {
+                        SaveallInformation();
+                    }
+                }
+            }
+            else {
+                $('#ModalForm').find('.modal-body').text("Please correct the error in the contact information form.");
+                $('#ModalForm').modal('show');
+
+            }
+        });
+
+           // preventing page from redirecting
+        $("html").on("dragover", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        });
+
+        $("html").on("drop", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        });
+
+         //Drag enter
+        $('.border-container').on('dragenter', function (e) {
+            //e.stopPropagation();
+            e.preventDefault();
+            e.dropEffect = 'move';
+            $('.firstline').on('mousedown', function (event) {
+                event.preventDefault();
+            });
+            $('.secondline').on('mousedown', function (event) {
+                event.preventDefault();
+            });
+            $('.orline').on('mousedown', function (event) {
+                event.preventDefault();
+            });
+            $('.icons').on('mousedown', function (event) {
+                event.preventDefault();
+            });
+
+            if (this.id == "overDropZone") {
+                $("#overDropZone .secondline").css("opacity", "0");
+                $("#overDropZone .orline").css("opacity", "0");
+                $("#overDropZone").css("background-color", "dimgrey");
+                $("#overDropZone .firstline").text("Drop the file here");
+                $("#overDropZone .firstline").css("color", "white" );
+            }
+            else if (this.id == "cerDropZone") {
+                $("#cerDropZone .secondline").css("opacity", "0");
+                $("#cerDropZone .orline").css("opacity", "0");
+                $("#cerDropZone .firstline").text("Drop the file here");
+                $("#cerDropZone").css("background-color", "dimgrey");
+                $("#cerDropZone .firstline").css( "color", "white" );
+            }
+        });
+
+
+        // Drag over
+        $('.border-container').on('dragover', function (e) {
+            //e.stopPropagation();
+            e.preventDefault();
+            e.dropEffect = 'move';
+            if (this.id == "overDropZone") {
+                $("#overDropZone .secondline").css("opacity", "0");
+                $("#overDropZone .orline").css("opacity", "0");
+                $("#overDropZone").css("background-color", "dimgrey");
+                $("#overDropZone .firstline").text("Drop the file here");
+                $("#overDropZone .firstline").css("color", "white");
+
+            }
+            else if (this.id == "cerDropZone") {
+                $("#cerDropZone .secondline").css("opacity", "0");
+                $("#cerDropZone .orline").css("opacity", "0");
+                $("#cerDropZone .firstline").text("Drop the file here");
+                $("#cerDropZone").css("background-color", "dimgrey");
+                $("#cerDropZone .firstline").css( "color", "white" );
+            }
+        });
+
+    // Drag leave
+        $('.border-container').on('dragleave', function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        if (this.id == "overDropZone") {
+            $("#overDropZone").css("background-color", "rgba(0, 0, 0, 0.03)");
+            $("#overDropZone .secondline").css("opacity", "1");
+            $("#overDropZone .orline").css("opacity", "1");
+            $("#overDropZone .firstline").text("Drag and Drop file here");
+            $("#overDropZone .firstline").css({ "font-size": "medium", "color": "black" });
+
+        }
+        else if (this.id == "cerDropZone") {
+            $("#cerDropZone").css("background-color", "rgba(0, 0, 0, 0.03)");
+            $("#cerDropZone .secondline").css("opacity", "1");
+            $("#cerDropZone .orline").css("opacity", "1");
+            $("#cerDropZone .firstline").text("Drag and Drop file here");
+            $("#cerDropZone .firstline").css({ "font-size": "medium", "color": "black" });
+        }
+    });
+
+        // Drop
+        $('.border-container').on('drop', function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+
+            if (this.id == "overDropZone") {
+                $("#overDropZone").css("background-color", "rgba(0, 0, 0, 0.03)");
+                $("#overDropZone .firstline").text("Drag and Drop file here");
+                $("#overDropZone .secondline").css("opacity", "1");
+                $("#overDropZone .orline").css("opacity", "1");
+                $("#overDropZone .firstline").css({ "font-size": "medium", "color": "black" });
+                var overfiles = e.originalEvent.dataTransfer.files;
+                showoverFileName(overfiles);
+            }
+            else if (this.id == "cerDropZone") {
+                $("#cerDropZone").css("background-color", "rgba(0, 0, 0, 0.03)");
+                $("#cerDropZone .firstline").text("Drag and Drop file here");
+                $("#cerDropZone .secondline").css("opacity", "1");
+                $("#cerDropZone .orline").css("opacity", "1");
+                $("#cerDropZone .firstline").css({ "font-size": "medium", "color": "black" });
+                var cerfiles = e.originalEvent.dataTransfer.files;
+                showcerFileName(cerfiles)
+            }
+
+        });
+
+    </script>
+
+}
+
+
+
+
+
+
+

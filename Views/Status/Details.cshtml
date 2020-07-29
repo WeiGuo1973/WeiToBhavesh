@@ -1,0 +1,178 @@
+﻿@model Audit.ViewModel.ContactViewModel
+@using Audit.Models
+
+@{
+    ViewBag.Title = "Details";
+
+}
+
+<div class="boxtop">
+
+    @*<div class="jumbotron-background">
+            <img src="~/Content/image/TopOffice.jpg" class="blur" />
+        </div>*@
+
+    <div class="container">
+
+        <h1 class="text-center">Detail Information</h1>
+    </div>
+
+</div>
+
+<div class="container leftside">
+    <h4>@Html.ActionLink("Back to List", "Index", "Status")</h4>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-xs-12 CardCollection">
+            <div class="card card-default">
+
+                <div class="card-header">
+                    <h3 class="text-center"><b>@Html.DisplayFor(model => model.Contacts.CompanyName)</b></h3>
+                    <p class="text-center">Application Time: @Model.Contacts.LoadDate.ToString("MM/dd/yyyy hh:mm tt")</p>
+                    <div>
+                        @*@Html.HiddenFor(model => model.Contacts.ID)*@
+                        <div class="text-center" style="display:inline-block">
+                            @*<div class="text-center">Current Status:  @Html.DropDownListFor(m => m.Contacts.Status, EnumHelper.GetSelectList(typeof(Status), Model.Contacts.Status), new { @class = "SortList", onchange = "this.form.submit();" }) </div>*@
+                            @*<input type="hidden" name="status" id="status" value="@Model.Contacts.Status" />*@
+                            <h5 class="text-center"> Current Status: <b>@Model.Contacts.Status.GetDisplayName()</b></h5>
+                            @*<input type="button" name="status" id="status" value="Change Status" />*@
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="card-body leftside">
+                    <p>Contact Person: @Html.DisplayFor(model => model.Contacts.ContactPerson)</p>
+                    <hr />
+                    <p> Phone Number: @Html.DisplayFor(model => model.Contacts.PhoneNumber)</p>
+                    <hr />
+                    <p> Email Address: @Html.DisplayFor(model => model.Contacts.Email)</p>
+                    <hr />
+                    <p> Fiscal Year: @Html.DisplayFor(model => model.Contacts.Physicalyear)</p>
+                    <hr />
+                    <p> Revenue:  @Model.Contacts.Revenue.GetDisplayName()</p>
+                    <hr />
+                    <p> Files Uploaded: (@Constants.LoadedFilePath)</p>
+                    <ul>
+                        @for (var i = 0; i < Model.LoadFiles.Count; i++)
+                        {
+                            <li>
+                                @Html.DisplayFor(model => model.LoadFiles[i].FileName)
+                            </li>
+
+                        }
+
+                    </ul>
+                </div>
+                @*<div class="card-footer">
+
+                    </div>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" style="text-align:right">
+    <button type="button" class="btn btn-outline-dark btnSpace" data-toggle="modal" data-target="#DeleteRecord">
+        Delete This Record
+    </button>
+    <button type="button" class="btn btn-outline-dark btnSpace" data-toggle="modal" data-target="#ChangeStatus" id="changest">
+        Change Status
+    </button>
+    @*@Html.ActionLink("Delete This Record", "Delete", "Status", new { id = Model.Contacts.ID }, new { @class = "btn btn-dark btn-xl text-center", })*@
+    @Html.ActionLink("Back to List", "Index", "Status", null, new { @class = "btn btn-outline-dark btnSpace" })
+</div>
+<br />
+<br />
+<br />
+<br />
+
+<!-- Delete Modal -->
+<div class="modal fade" id="DeleteRecord" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Waring!!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Please cofirm you do want to delete this record!!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                @Html.ActionLink("Delete", "Delete", "Status", new { id = Model.Contacts.ID }, new { @class = "btn btn-primary", })
+                @*<button type="button" class="btn btn-primary">OK</button>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Change status Modal -->
+<div class="modal fade" id="ChangeStatus" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Change Status</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @*Please cofirm you do want to delete this record!!*@
+                @using (Html.BeginForm("Details", "Status", FormMethod.Post, new { @class = "btn" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.Contacts.ID)
+
+
+                    <div class="row rowchoice mb-0 customRadio">
+                        <div class="row rowchoice justify-content-start">
+                            <div class="col-12">
+                                <span class="row rowchoice"> <input type="radio" name="selector" id="awaitreview" value="1"> <label for="awaitreview">Awaiting Review</label> </span>
+                                <span class="row rowchoice"> <input type="radio" name="selector" id="underreview" value="2"> <label for="underreview">Under Review</label> </span>
+                                <span class="row rowchoice"> <input type="radio" name="selector" id="reviewed" value="3"> <label for="reviewed">Reviewed</label> </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <input class="btn btn-primary" id="btn-sub" type="submit" value="Change Now">
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $("#ChangeStatus").on('show.bs.modal', function () {
+            $('#btn-sub').prop('disabled', true);
+            $('input:radio[name=selector]:checked').prop('checked', false);
+        });
+
+        $('#awaitreview').click(function () {
+            $('#btn-sub').prop('disabled', false);
+        });
+
+        $('#underreview').click(function () {
+            $('#btn-sub').prop('disabled', false);
+        });
+
+        $('#reviewed').click(function () {
+            $('#btn-sub').prop('disabled', false);
+        });
+
+        $('#btn-sub').click(function () {
+            $('#btn-sub').prop('value', "processing...");
+        });
+    });
+
+</script>
+

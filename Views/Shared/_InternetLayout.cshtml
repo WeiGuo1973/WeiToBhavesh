@@ -1,0 +1,386 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Audit Application</title>
+
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+        <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />*@
+    @*<script src="~/Scripts/modernizr-2.8.3.js"></script>
+        <script src="~/Scripts/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">*@
+    <script src="~/Scripts/Javascript.js"></script>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/StyleSheet.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+    <div class="container1">
+        <div class="navbar" style="height:128px;margin-bottom:0px;padding:0px;">
+            <div style="width:100%;display:block;">
+                <div class="dotdnav-image">
+                    <a class="nav-link" href="http://wwwsp.dotd.la.gov/Pages/default.aspx">
+                        <img class="img-responsive" src="../Images/DOTD_logo.png" alt="La DOTD">
+                    </a>
+                </div>
+                <div id="topNavbar">
+                    <div id="topNavbar">
+                        <div id="divPortalMenu_JustText" onmouseover="timer1=setTimeout(function(){TurnOnMenu('divPortalMenu');}, 0);" onmouseout="clearTimeout(timer1);TurnOffMenu();">
+                            <a style="">EMPLOYEE PORTAL</a>
+                        </div>
+                        <div id="divPortalMenu" onmouseover="javascript: TurnOnMenu('divPortalMenu');" onmouseout="javascript: clearTimeout(timer1); TurnOffMenu();" style="display: none;">
+                            <ul>
+                                <li onmouseover="javascript: $(this).css('background-color','#f0f0f0');" onmouseout="javascript: $(this).css('background-color','#f26322');" style="background-color: rgb(242, 99, 34);">
+                                    <div id="ctl00_ctl45_DOTDSignInControlPanel" style="display:inline">
+
+
+                                        <a id="ctl00_ctl45_ExplicitLogin" href="http://wwwsp.dotd.la.gov/StyleGuide/_layouts/Authenticate.aspx?Source=%2FStyleGuide%2FPages%2FDOTD%5FBodyOnly%5FNoNav%2Easpx">SIGN IN/OUT</a>
+
+
+                                    </div>
+                                </li>
+                                <li onmouseover="javascript: $(this).css('background-color','#f0f0f0');" onmouseout="javascript: $(this).css('background-color','#f26322');" style="background-color: rgb(242, 99, 34);"><a href="http://wwwsp.dotd.la.gov/Inside_LaDOTD/Pages/Employee_Portal.aspx">Login Help</a></li>
+                                <li onmouseover="javascript: $(this).css('background-color','#f0f0f0');" onmouseout="javascript: $(this).css('background-color','#f26322');" style="background-color: rgb(242, 99, 34);"><a href="https://webmail.la.gov/owa/auth/logon.aspx?replaceCurrent=1&url=https%3a%2f%2fwebmail.la.gov%2fowa">Employee Email</a></li>
+                                <li onmouseover="javascript: $(this).css('background-color','#f0f0f0');" onmouseout="javascript: $(this).css('background-color','#f26322');" style="background-color: rgb(242, 99, 34);"><a href="https://citrix1.dotd.la.gov/">Remote via Citrix</a></li>
+                                <li onmouseover="javascript: $(this).css('background-color','#f0f0f0');" onmouseout="javascript: $(this).css('background-color','#f26322');" style="background-color: rgb(242, 99, 34);"><a href="https://vpn1.otm.la.gov/+CSCOE+/message.html?mc=2">Remote via VPN</a></li>
+                            </ul>
+                        </div>
+                        <a style="">|</a>
+                        <a href="http://wwwsp.dotd.la.gov/Pages/SiteMap.aspx">SITE MAP</a>
+                        <a style="">|</a>
+                        <a href="http://wwwsp.dotd.la.gov/Inside_LaDOTD/Pages/Contact_Us.aspx">CONTACT US</a>
+                        <a style="">|</a>
+                        <a href="http://wwwapps.dotd.la.gov/administration/dotdaz">DOTD A-Z</a>
+                        <a style="">|</a>
+                        <a href="http://wwwsp.dotd.la.gov/help/Pages/default.aspx">HELP</a>
+
+
+                    </div>
+                </div>
+                <div id="topNav_Search_bar" style="display:inline-block;white-space:nowrap">
+                    <div class="row">
+                        <div class="col-10" style="padding:0px;">
+                            <div class="input-group">
+                                <span>                                   
+                                    <img src="../Images/LaDOTD-banner_SearchButton.png" class="input-group-img"
+                                         onclick="performSearch(); return false;WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions('ctl00$ImageButton1', '', true, '', '', false, false))"
+                                         alt="Search">
+                                </span>
+                                <input id="SearchTxt" type="text" class="form-control" name="Search" placeholder="Search for Projects, Services, Manuals or Other Information">
+
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div id="SocialIcons" align="center">
+                                <div class="row no-gutters" >
+
+                                    <div class="col-4">
+                                        <a href="http://wwwsp.dotd.la.gov/Inside_LaDOTD/Pages/Follow_DOTD.aspx">
+                                            <img src="../Images/LaDOTD-banner_Facebook.png" style="border: none;" alt="LaDOTD's Facebook Pages">
+                                        </a>
+                                    </div>
+                                    <div class="col-4">
+                                        <a href="https://www.youtube.com/user/LouisianaDOTD" target="_blank">
+                                            <img src="../Images/LaDOTD-banner_YouTube.png" style="border: none;" alt="LaDOTD's YouTube Channel">
+                                        </a>
+                                    </div>
+                                    <div class="col-4">
+                                        <a href="http://wwwsp.dotd.la.gov/Inside_LaDOTD/Pages/Follow_DOTD.aspx">
+                                            <img src="../Images/LaDOTD-banner_Twitter.png" style="border: none;" alt="LaDOTD's Twitter Pages">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="navbar_b" align="right">
+                    <div class="row">
+                        <div class="col-10" style="padding:0px;">
+                            <div id="navbar_Blue">
+                                <a href="http://wwwsp.dotd.la.gov/Inside_LaDOTD/Pages/About_DOTD.aspx">About DOTD</a>
+                                <a style="">|</a>
+                                <a href="http://wwwsp.dotd.la.gov/Inside_LaDOTD/Divisions/Mgmt_Finance/HR/Pages/default.aspx">Employment</a>
+                                <a style="">|</a>
+                                <a href="http://wwwsp.dotd.la.gov/Business/Pages/GIS_Maps.aspx">Maps / GIS</a>
+                                <a style="">|</a>
+                                <a href="http://wwwsp.dotd.la.gov/Inside_LaDOTD/Pages/News%20and%20Events.aspx">News &amp; Events</a>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div id="TopBar_MyDOTD" align="left">
+                                <a href="http://wwwapps.dotd.la.gov/administration/announcements/mydotd.aspx">
+                                    <img src="../Images/logo_myDOTD_topBanner.png" style="border: none;" alt="MyDOTD">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="MainMenu" align="right">
+                    <div id="navbar_links">
+                        <div id="button_Inside_LaDOTD">
+                            <a id="aInDOTD" href="http://wwwsp.dotd.la.gov/Inside_LaDOTD/Pages/default.aspx" onmouseover="timer1=setTimeout(function(){TurnOnMenu('divInside_LaDOTD');}, 750);" onmouseout="clearTimeout(timer1);TurnOffMenu();"><img src="../Images/buttons_Inside_LaDOTD_off.png" style="border: none;" alt=""></a>
+                        </div>
+                        <div id="button_Government">
+                            <a href="http://wwwsp.dotd.la.gov/government/Pages/default.aspx" onmouseover="timer1=setTimeout(function(){TurnOnMenu('divGovernment');}, 750);" onmouseout="clearTimeout(timer1);TurnOffMenu();"><img src="../Images/buttons_Government_off.png" style="border: none;" alt=""></a>
+                        </div>
+                        <div id="button_Business">
+                            <a href="http://wwwsp.dotd.la.gov/business/Pages/default.aspx" onmouseover="timer1=setTimeout(function(){TurnOnMenu('divBusiness');}, 750);" onmouseout="clearTimeout(timer1);TurnOffMenu();"><img src="../Images/buttons_Business_off.png" style="border: none;" alt=""></a>
+                        </div>
+                        <div id="button_Residents">
+                            <a href="http://wwwsp.dotd.la.gov/Residents/Pages/default.aspx" onmouseover="timer1=setTimeout(function(){TurnOnMenu('divResidents');}, 750);" onmouseout="clearTimeout(timer1);TurnOffMenu();"><img src="../Images/buttons_Residents_off.png" style="border: none;" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="navbar_dropdown" style="display: none; z-index: -1;">
+                    <div id="divInside_LaDOTD" onmouseover="javascript: TurnOnMenu('divInside_LaDOTD');" onmouseout="javascript: clearTimeout(timer1); TurnOffMenu();" style="display: none;">
+                        <div id="ctl00_menuPrograms_divMenu_Text" class="Menu_Text">
+                            <table align="right" class="noborder" cellspacing="0" cellpadding="20" style="width: 900px; height: 180px; margin-top: 30px">
+                                <tbody>
+                                    <tr>
+                                        <td width="30%" class="noborder" valign="top" style="border-right-color: #f2f2f2; border-right-width: 1px; border-right-style: solid">
+                                            <a href="http://wwwsp.dotd.la.gov/Inside_LaDOTD" target="_self">Inside LaDOTD</a>
+                                            <br>
+                                            Find forms and publications and learn what's new at DOTD.
+                                        </td>
+                                        <td width="70%" class="noborder" valign="top">
+                                            <table class="noborder" cellspacing="0" cellpadding="10" style="width: 100%">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="50%" class="noborder" valign="top">
+                                                            <img alt="" src="../Images/nav_orange_arrow.png">
+                                                            <a href="http://wwwsp.dotd.la.gov/Inside_LaDOTD/Pages/About_DOTD.aspx" target="_self">About DOTD</a>
+                                                            <br>
+                                                            <br>
+                                                            <img alt="" src="../Images/nav_orange_arrow.png">
+                                                            <a href="http://wwwsp.dotd.la.gov/Inside_LaDOTD/Divisions" target="_self">Divisions</a>
+                                                            <br>
+                                                            <br>
+                                                            <img alt="" src="../Images/nav_orange_arrow.png">
+                                                            <a href="http://wwwapps.dotd.la.gov/administration/dotdaz/" target="_self">DOTD A-Z</a>
+                                                            <br>
+                                                            <br>
+                                                            <img alt="" src="../Images/nav_orange_arrow.png">
+                                                            <a href="http://wwwsp.dotd.la.gov/Inside_LaDOTD/Pages/Forms_Publications.aspx" target="_self">Forms &amp; Publications</a>
+                                                        </td>
+                                                        <td width="50%" class="noborder" valign="top">
+                                                            <img alt="" src="../Images/nav_orange_arrow.png">
+                                                            <a href="http://wwwsp.dotd.la.gov/Inside_LaDOTD/Pages/Follow_DOTD.aspx" target="_self">Follow DOTD</a>
+                                                            <br>
+                                                            <br>
+                                                            <img alt="" src="../Images/nav_orange_arrow.png">
+                                                            <a href="http://wwwsp.dotd.la.gov/Inside_LaDOTD/Pages/News%20and%20Events.aspx" target="_self">News &amp; Events</a>
+                                                            <br>
+                                                            <br>
+                                                            <img alt="" src="../Images/nav_orange_arrow.png">
+                                                            <a href="http://wwwsp.dotd.la.gov/Pages/SiteMap.aspx" target="_self">Site Map</a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                    <div id="divGovernment" onmouseover="javascript: TurnOnMenu('divGovernment');" onmouseout="javascript: clearTimeout(timer1); TurnOffMenu();" style="display: none;">
+                        <div id="ctl00_menuGovernment_divMenu_Text" class="Menu_Text">
+                            <table align="right" class="noborder" cellspacing="0" cellpadding="20" style="width: 900px; height: 180px; margin-top: 30px">
+                                <tbody>
+                                    <tr>
+                                        <td width="30%" class="noborder" valign="top" style="border-right-color: #f2f2f2; border-right-width: 1px; border-right-style: solid">
+                                            <a href="http://wwwsp.dotd.la.gov/government" target="_self">Government</a>
+                                            <br>
+                                            Learn about public programs, policies and procedures.
+                                        </td>
+                                        <td width="70%" class="noborder" valign="top">
+                                            <table class="noborder" cellspacing="0" cellpadding="10" style="width: 100%">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="50%" class="noborder" valign="top">
+                                                            <img alt="" src="../Images/nav_orange_arrow.png">
+                                                            <a href="http://wwwsp.dotd.la.gov/Government/Pages/Programs.aspx" target="_self">Programs</a>
+                                                            <br>
+                                                            <br>
+                                                            <img alt="" src="../Images/nav_orange_arrow.png">
+                                                            <a href="http://wwwsp.dotd.la.gov/Government/Pages/Assistance_Programs.aspx" target="_self">Assistance Programs / Funding</a>
+                                                            <br>
+                                                            <br>
+                                                            <img alt="" src="../Images/nav_orange_arrow.png">
+                                                            <a href="http://wwwsp.dotd.la.gov/Government/Pages/Processes_Procedures.aspx" target="_self">Processes &amp; Procedures</a>
+                                                        </td>
+                                                        <td width="50%" class="noborder" valign="top">
+                                                            <img alt="" src="../Images/nav_orange_arrow.png">
+                                                            <a href="http://wwwsp.dotd.la.gov/Inside_LaDOTD/Divisions/Multimodal/Transportation_Plan" target="_self">Statewide Transportation Plan</a>
+                                                            <br>
+                                                            <br>
+                                                            <img alt="" src="../Images/nav_orange_arrow.png">
+                                                            <a href="http://wwwsp.dotd.la.gov/Inside_LaDOTD/Pages/Forms_Publications.aspx" target="_self">Publications &amp; Reports</a>
+                                                            <br>
+                                                            <br>
+                                                            <img alt="" src="../Images/nav_orange_arrow.png">
+                                                            <a href="http://wwwprd.doa.louisiana.gov/LaServices/PublicPages/" target="_blank">LA Services Directory</a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                    <div id="divBusiness" onmouseover="javascript: TurnOnMenu('divBusiness');" onmouseout="javascript: clearTimeout(timer1); TurnOffMenu();" style="display: none;">
+                        <div id="ctl00_menuBusiness_divMenu_Text" class="Menu_Text">
+                            <table align="right" class="noborder" cellspacing="0" cellpadding="20" style="width: 900px; height: 180px; margin-top: 30px">
+                                <tbody>
+                                    <tr>
+                                        <td width="30%" class="noborder" valign="top" style="border-right-color: #f2f2f2; border-right-width: 1px; border-right-style: solid">
+                                            <a href="http://wwwsp.dotd.la.gov/business" target="_self">Business</a>
+                                            <span style="color: white; font-weight: bold">Working With DOTD</span>
+                                            <br>
+                                            Get a permit, bid on a project and learn how to work with DOTD.
+                                        </td>
+                                        <td width="70%" class="noborder" valign="top">
+                                            <table class="noborder" cellspacing="0" cellpadding="0" style="width: 100%">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="50%" class="noborder" valign="top">
+                                                            <img alt="" src="../Images/nav_orange_arrow.png">
+                                                            <a href="http://wwwsp.dotd.la.gov/Business/Pages/Get_a_Permit.aspx" target="_self">Get a Permit</a>
+                                                            <br>
+                                                            <br>
+                                                            <img alt="" src="../Images/nav_orange_arrow.png">
+                                                            <a href="http://wwwsp.dotd.la.gov/Business/Pages/Projects_Scheduled.aspx" target="_self">Projects Scheduled</a>
+                                                            <br>
+                                                            <br>
+                                                            <img alt="" src="../Images/nav_orange_arrow.png">
+                                                            <a href="http://wwwsp.dotd.la.gov/Business/Pages/Vendor_Information.aspx" target="_self">Vendor Information</a>
+                                                        </td>
+                                                        <td width="50%" class="noborder" valign="top">
+                                                            <img alt="" src="../Images/nav_orange_arrow.png">
+                                                            <a href="http://wwwsp.dotd.la.gov/Business/Pages/Construction_Services.aspx" target="_self">Construction Services</a>
+                                                            <br>
+                                                            <br>
+                                                            <img alt="" src="../Images/nav_orange_arrow.png">
+                                                            <a href="http://wwwsp.dotd.la.gov/Business/Pages/Projects.aspx" target="_self">Projects</a>
+                                                            <br>
+                                                            <br>
+                                                            <img alt="" src="../Images/nav_orange_arrow.png">
+                                                            <a href="http://wwwsp.dotd.la.gov/Business/Pages/GIS_Maps.aspx" target="_self">GIS / Maps</a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                    <div id="divResidents" onmouseover="javascript: TurnOnMenu('divResidents');" onmouseout="javascript: clearTimeout(timer1); TurnOffMenu();" style="display: none;">
+                        <div id="ctl00_menuResidents_divMenu_Text" class="Menu_Text">
+                            <table align="right" class="noborder" cellspacing="0" cellpadding="20" style="width: 900px; height: 180px; margin-top: 30px">
+                                <tbody>
+                                    <tr>
+                                        <td width="30%" class="noborder" valign="top" style="border-right-color: #f2f2f2; border-right-width: 1px; border-right-style: solid">
+                                            <a href="http://wwwsp.dotd.la.gov/Residents/Pages/default.aspx" target="_self">Residents</a>
+                                            <span style="color: white; font-weight: bold">in My Community</span>
+                                            <br>Get travel information and find projects in your area.
+                                        </td>
+                                        <td width="70%" class="noborder" valign="top">
+                                            <table class="noborder" cellspacing="0" cellpadding="0" style="width: 100%">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="50%" class="noborder" valign="top">
+                                                            <img alt="" src="../Images/nav_orange_arrow.png">
+                                                            <a href="http://wwwsp.dotd.la.gov/Residents/Pages/Travel_Information.aspx" target="_self">Travel Information</a>
+                                                            <br>
+                                                            <br>
+                                                            <img alt="" src="../Images/nav_orange_arrow.png">
+                                                            <a href="http://wwwsp.dotd.la.gov/Residents/Pages/How-Do-I.aspx" target="_self">How Do I...? / FAQs</a>
+                                                            <br>
+                                                            <br>
+                                                            <img alt="" src="../Images/nav_orange_arrow.png">
+                                                            <a href="http://wwwsp.dotd.la.gov/Residents/Pages/Emergency_Information.aspx" target="_self">Emergency Information</a>
+                                                        </td>
+                                                        <td width="50%" class="noborder" valign="top">
+                                                            <img alt="" src="../Images/nav_orange_arrow.png">
+                                                            <a href="http://wwwapps.dotd.la.gov/administration/announcements/DistrictMap.aspx" target="_self">Projects in My Area (MyDOTD)</a>
+                                                            <br>
+                                                            <br>
+                                                            <img alt="" src="../Images/nav_orange_arrow.png">
+                                                            <a href="http://wwwsp.dotd.la.gov/Residents/Pages/Modes_of_Travel.aspx" target="_self">Modes of Travel</a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="body-content" style="background-color:White;">
+            <div id="DOTD_TopBanner"></div>
+            <div id="divBlueSwoosh"></div>
+            <div id="s4-DOTD-middle">
+
+                <!-- s4-ca is the main body div -->
+                <div id="s4-DOTD-content" class="s4-ca">
+                    @*<div class="s4-notdlg" id="SP_Breadcrumbs">*@
+                    <!-- page title -->
+                    @*<a href="http://wwwsp.dotd.la.gov">Home</a>
+                        </div>*@
+                    <div>
+                        <!--Render Body -->
+                        @RenderBody()
+
+                    </div>
+                    <br><br>
+                    <div id="DOTD_Content_Bottom_Marker"></div>
+                </div>
+                <div class="s4-notdlg" id="outerFooter">
+                    <div style="text-align: center;">
+                        <div id="footer-fixed">
+                            <div id="innerFooter">
+                                <div class="footer_sitemap_closed">
+                                    <a href="http://wwwsp.dotd.la.gov/pages/sitemap.aspx">SEE SITE MAP</a>
+                                </div>
+                                <div class="footer_locationinformation">
+                                    <span class="footer_orange">LA DOTD HEADQUARTERS</span>
+                                    <span>
+                                        1201 Capitol Access Road, Baton Rouge, LA, 70802&nbsp;&nbsp; Telephone: (225) 379-1232
+                                        &nbsp;&nbsp;
+                                        Email: <a href="mailto:dotdcs@la.gov">dotdcs@la.gov</a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

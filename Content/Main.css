@@ -1,0 +1,808 @@
+﻿/*-------------------------------------------------
+    INDOTD_MAIN.CSS
+    LAST UPDATED 20131031 
+-------------------------------------------------*/
+/*----PAGE---------------------------------------------------------------------------------PAGE--*/
+html, body {   
+    height: 100%;
+    margin: 0px;
+    min-height: 100vh;
+    padding: 0px;
+    min-width: 950px;
+    width: 100%;
+}
+
+/*----TOPBAR-----------------------------------------------------------------------------TOPBAR--*/
+#TopBar {
+    background-color: #339900;
+    background-image: url(/images/bkg_TopBar.gif);
+    background-position: left;
+    background-repeat: repeat-x;
+    /*background-size: cover;*/
+    border-bottom: solid 1px #339900;
+    border-top: solid 1px #339900;
+    height: 20px;
+    padding-top: 1px;
+    min-width: 1000px;
+    width: 100%;    
+    /*position: fixed;*/
+    /*top: 0;
+    left: 0;*/
+}
+
+
+    #TopBar a.linkstyle_green, #BaseBar a.linkstyle_green {
+        background-color: #e4db3e;
+        border: solid 1px #7a7521;
+        font-weight: bold;
+        font-family: Verdana;
+        font-size: 10px;
+        color: #333333;
+        text-decoration: none;
+        float: right;
+        margin-right: 3px;
+        height: 16px;
+        width: 110px;
+        text-align: center;
+        padding-top: 1px;
+    }
+
+        #TopBar a.linkstyle_green:hover, #BaseBar a.linkstyle_green:hover {
+            background-color: #fbf138;
+            border: solid 1px #7a7521;
+            font-family: Verdana;
+            font-weight: bold;
+            font-size: 10px;
+            color: blue;
+            text-decoration: underline;
+            float: right;
+            margin-right: 3px;
+            height: 16px;
+            width: 110px;
+            text-align: center;
+            padding-top: 2px;
+        }
+
+        #TopBar a.linkstyle_green, #TopBar a.linkstyle_green:hover {
+            width: 110px;
+        }
+
+#topnav {
+    margin-top: -50px;    
+    float: right;
+    right: 0px;
+}
+
+    #input_name{
+        height: 32px;
+    }
+
+#topnav .SearchPromptText, #topnav .SearchPromptBox {
+    clear: both;
+    float: right;
+    display: block;
+    color: yellow !important;
+    font-size: 12px;
+    font-weight: bold;
+    margin: 0px;
+    height: 16px;
+    width: 275px;
+    right: 250px;
+    /*top: 30px;*/
+    position: absolute;
+}
+
+    #topnav .SearchPromptText {
+        /*right: 250px;*/
+        top: 25px;
+    }
+
+    #topnav .SearchPromptText {
+        padding-left: 13px;
+        margin-top: 8px;
+    }
+/*----GFXBAR-----------------------------------------------------------------------------GFXBAR--*/
+#GfxBar, #GfxBar_Wide {
+    background-color: #3366CC;
+    background-image: url(/images/GfxBar_Main.jpg);
+    background-repeat: no-repeat;
+    border-top: solid 1px #99ff66;
+    background-size: auto;
+    height: 51px !important;
+    height: 51px;
+    min-width: 1000px;
+    width: 100%;
+
+}
+
+#GfxBar_Wide {
+    width: 100%;
+    background-image: url(/images/GfxBar_Main_Bkg_ex.jpg);
+    background-repeat: repeat-x;
+}
+
+
+#pnlSearch {
+    text-align: right;
+    padding-top: 5px;
+    margin-top: 1px;
+    margin-right: 3px;
+    color: black;
+    font-weight: normal;
+    top: 30px;
+
+}
+
+#Menuheader {
+    height: 25px;
+    font-size: 15px;
+    padding: 3px;
+    background-color: forestgreen;
+    font-weight: bold;
+    color: #ffffff;
+    width: 172px
+}
+
+#sidebar {
+    height: 100vh;
+    background-color: lightgrey;
+}
+
+    #sidebar .list-group-item {
+        border-radius: 0;
+        background-color: lightgray;
+        color: black;
+        border-left: 0;
+        border-right: 0;
+        border-color: #2c2c2c;
+        white-space: nowrap;
+        text-decoration: none;
+    }
+
+        /* highlight active menu */
+        #sidebar .list-group-item:not(.collapsed) {
+            background-color: chartreuse;
+        }
+
+    /* closed state icon */
+    #sidebar .list-group .list-group-item[aria-expanded="false"]::after {
+        content: " \f0d7";
+        font-family: FontAwesome;
+        display: inline;
+        text-align: right;
+        padding-left: 5px;
+    }
+
+    /* open state */
+    #sidebar .list-group .list-group-item[aria-expanded="true"] {
+        background-color: green;
+    }
+        /* open state icon */
+        #sidebar .list-group .list-group-item[aria-expanded="true"]::after {
+            content: " \f0da";
+            font-family: FontAwesome;
+            display: inline;
+            text-align: right;
+            padding-left: 5px;
+        }
+
+    /* level 1*/
+    #sidebar .list-group .collapse .list-group-item {
+        padding-left: 20px;
+    }
+
+    /* level 2*/
+    #sidebar .list-group .collapse > .collapse .list-group-item {
+        padding-left: 30px;
+    }
+
+    /* level 3*/
+    #sidebar .list-group .collapse > .collapse > .collapse .list-group-item {
+        padding-left: 40px;
+    }
+
+@media (max-width:48em) {
+    /* overlay sub levels on small screens */
+    #sidebar .list-group .collapse.in, #sidebar .list-group .collapsing {
+        position: absolute;
+        z-index: 1;
+        width: 190px;
+    }
+
+    #sidebar .list-group > .list-group-item {
+        text-align: center;
+        padding: .75rem .5rem;
+        min-width: 39px;
+    }
+        /* hide caret icons of top level when collapsed */
+        #sidebar .list-group > .list-group-item[aria-expanded="true"]::after,
+        #sidebar .list-group > .list-group-item[aria-expanded="false"]::after {
+            display: none;
+        }
+}
+
+/* change transition animation to width when entire sidebar is toggled */
+#sidebar.collapse {
+    -webkit-transition-timing-function: ease;
+    -o-transition-timing-function: ease;
+    transition-timing-function: ease;
+    -webkit-transition-duration: .2s;
+    -o-transition-duration: .2s;
+    transition-duration: .2s;
+}
+
+#sidebar.collapsing {
+    opacity: 0.8;
+    width: 0;
+    -webkit-transition-timing-function: ease-in;
+    -o-transition-timing-function: ease-in;
+    transition-timing-function: ease-in;
+    -webkit-transition-property: width;
+    -o-transition-property: width;
+    transition-property: width;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.linkdiv {
+    display: block;
+    height: 100px;
+    width: 25px;
+}
+
+/*----TOOLBAR---------------------------------------------------------------------------TOOLBAR--*/
+#ToolBar {
+    background-image: url(/images/bkg_ToolBar.gif);
+    background-repeat: repeat-x;
+    background-color: #CCCCCC;
+    height: 24px;
+    min-width: 1000px;
+    width: 100%;
+    /*position: fixed;
+    top: 71px;
+    left: 0px;*/
+}
+
+    #ToolBar a.linkstyle_bread {
+        color: #666666;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+        #ToolBar a.linkstyle_bread:hover {
+            color: #339900;
+            text-decoration: underline;
+        }
+
+    #ToolBar #BreadCrumbs {
+        float: left;
+        margin: 5px 0px 0px 2px;
+        padding: 0px;
+        width: 667px;
+        text-align: left;
+    }
+
+    #ToolBar .bread_bullet {
+        margin: 0px 2px 0px 2px;
+        vertical-align: middle;
+    }
+
+/*----QUICK BUTTONS-----------------------------------------------------------QUICK BUTTONS--*/
+#QuickButtons {
+    float: right;
+    height: 22px;
+    margin: 0px;
+    width: 72px;
+}
+
+#QB1 a.linkstyle_quick, #QB2 a.linkstyle_quick, #QB3 a.linkstyle_quick {
+    background-repeat: no-repeat;
+    background-position: center;
+    float: right;
+    height: 22px;
+    margin-right: 2px !important;
+    margin-right: 1px;
+    margin-top: 1px;
+    width: 21px !important;
+    width: 22px;
+}
+
+#QB1 a.linkstyle_quick {
+    background-image: url(/images/indotd_qbWeather.gif);
+}
+
+    #QB1 a.linkstyle_quick:hover {
+        background-image: url(/images/indotd_qbWeather_high.gif);
+    }
+
+#QB2 a.linkstyle_quick {
+    background-image: url(/images/indotd_qbPhone.gif);
+}
+
+    #QB2 a.linkstyle_quick:hover {
+        background-image: url(/images/indotd_qbPhone.gif);
+    }
+
+#QB3 a.linkstyle_quick {
+    background-image: url(/images/indotd_qbLeaveSlip.gif);
+}
+
+    #QB3 a.linkstyle_quick:hover {
+        background-image: url(/images/indotd_qbLeaveSlip_high.gif);
+    }
+
+/*----SEARCH COMPONANT---------------------------------------------------------SEARCH COMPONANT--*/
+#SearchComponant {
+    float: right;
+    height: 22px;
+    margin: 0px;
+    width: 350px;
+}
+
+    #SearchComponant #SC1, #SearchComponant #SC3, #SearchComponant #SC4 {
+        float: right;
+        height: auto;
+        padding-right: 2px;
+        padding-top: 3px;
+    }
+
+    #SearchComponant #SC2 {
+        float: right;
+        height: auto;
+        padding-right: 2px;
+        padding-top: 3px !important;
+        padding-top: 2px;
+        /*Hack padding-top all browsers except ie use what is 
+	before !important, ie ignores and uses what is after it*/
+    }
+
+    #SearchComponant .search_txtbox {
+        border: solid 1px #666666;
+        color: #000000;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 11px;
+        padding-left: 3px;
+        width: 140px;
+    }
+
+    #SearchComponant .search_button {
+        Border: none;
+        font-family: Arial, Helvetica, sans-serif;
+        width: 21px;
+    }
+
+.ie_spacing_fix {
+    margin: 0px;
+    padding: 0px;
+}
+
+/*----LEFT COLUMN-------------------------------------------------------------------LEFT COLUMN--*/
+#MenuContainer {
+    width: 167px;
+}
+/*Height set with javascript menu*/
+
+#LeftColumn_base {
+    margin-top: 1px;
+    height: 10px;
+    width: 167px;
+    background-image: url(/style_indotd/images/leftcolumn_base.gif);
+    background-repeat: no-repeat;
+}
+
+/*----CENTER COLUMN---------------------------------------------------------------CENTER COLUMN--*/
+#Left {
+    background-image: url(/style_indotd/images/center_shadow_left.gif);
+    background-repeat: repeat-y;
+}
+
+#Right {
+    background-image: url(/style_indotd/images/center_shadow_right.gif);
+    background-repeat: repeat-y;
+}
+
+.CenterContent_s1 {
+    background-image: url(/style_indotd/images/bkg_center.gif);
+    background-repeat: repeat-y;
+    padding: 10px 5px 10px 5px;
+}
+
+.CenterContent_s2, .CenterContent_s3 {
+    padding: 10px;
+}
+
+/*20060623 Moved to indotd_defaults.css*/
+#Content a.linkstyle_bullet {
+    background-image: url(/images/blue_bullet.gif);
+    background-position: center left;
+    background-repeat: no-repeat;
+    color: #003399;
+    height: auto;
+    padding-left: 12px;
+    text-decoration: none;
+    width: auto;
+}
+
+    #Content a.linkstyle_bullet:visited {
+        background-image: url(/images/grey_bullet.gif);
+        color: #999999;
+        font-size: 15px;
+        font-weight: bold;
+        padding-right: 12px;
+    }
+
+    #Content a.linkstyle_bullet:active {
+        background-image: url(/images/blue_bullet.gif);
+        color: #3366CC;
+    }
+
+    #Content a.linkstyle_bullet:hover {
+        background-image: url(/images/green_bullet.gif);
+        color: #339900;
+        text-decoration: underline;
+    }
+
+/*----RIGHT COLUMN-----------------------------------------------------------------RIGHT COLUMN--*/
+#RightColumn_base {
+    margin-top: 1px;
+    height: 10px;
+    width: 189px;
+    background-image: url(/style_indotd/images/rightcolumn_base.gif);
+    background-repeat: no-repeat;
+}
+
+#page-container {
+    position: relative;
+    min-height: 100vh;
+}
+
+#content-wrap {
+    padding-bottom: 20px; /* Footer height */
+}
+/*----BASE BAR-------------------------------------------------------------------------BASE BAR--*/
+#BaseBar {
+    background-color: #339900;
+    background-image: url(/images/bkg_TopBar.gif);
+    background-position: left;
+    background-repeat: repeat-x;
+    border-top: solid 1px #339900;
+    border-bottom: solid 1px #339900;
+    height: 20px;
+    padding-top: 1px;
+    min-width: 1000px;
+    width: 100%;
+    bottom: 0;      
+    position: absolute;
+}
+
+/*--COLUMN PART STYLE SECTION-----------------------------------------COLUMN PART STYLE SECTION--*/
+    .part_container {
+    margin-top: 1px;
+}
+
+/*--COLUMN PART GENERIC----------------------------------------------------------COLUMN GENERIC--*/
+#LeftColumn .HeaderTitle, #RightColumn .HeaderTitle {
+    padding: 2px 2px 0px 5px;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+#CenterColumn .HeaderTitle {
+    padding: 2px 2px 0px 5px;
+    color: #666666;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+#LeftColumn .Column_Header, #CenterColumn .Column_Header, #RightColumn .Column_Header {
+    background-repeat: repeat-x;
+    border: solid 1px #666666;
+    height: 21px;
+}
+
+#LeftColumn .Column_Body, #CenterColumn .Column_Body, #RightColumn .Column_Body {
+    border-bottom: solid 1px #666666;
+    border-left: solid 1px #666666;
+    border-right: solid 1px #666666;
+    color: #666666;
+    font-weight: bold;
+    margin: 0px;
+    padding: 5px 0px 5px 0px;
+}
+
+#LeftColumn .Column_Row, #CenterColumn .Column_Row, #RightColumn .Column_Row {
+    border-bottom: dotted 1px #666666;
+    height: 20px;
+}
+
+#LeftColumn a.linkstyle_left, #CenterColumn a.linkstyle_center, #RightColumn a.linkstyle_right {
+    display: block;
+    font-size: 11px;
+    font-weight: bold;
+    height: 20px;
+    margin: 0px;
+    padding: 2px 5px 2px 5px;
+    text-decoration: none;
+}
+
+    #LeftColumn a.linkstyle_left:hover, #CenterColumn a.linkstyle_center:hover, #RightColumn a.linkstyle_right:hover {
+        text-decoration: underline;
+    }
+
+#LeftColumn .list_bullet, #CenterColumn .list_bullet, #RightColumn .list_bullet {
+    background-position: center;
+    background-repeat: no-repeat;
+    float: left;
+    height: 10px;
+    padding-right: 2px;
+    width: 10px;
+}
+
+/*--LEFT COLUMN PART----------------------------------------------------------------LEFT COLUMN--*/
+#LeftColumn {
+    background-color: #F2F2F2;
+    vertical-align: top;
+}
+
+    #LeftColumn .LeftColumn_Header {
+        background-color: #CCCCCC;
+        background-image: url(/style_indotd/images/bkg_header_green.gif);
+    }
+
+    #LeftColumn .LeftColumn_Body {
+        background-color: #EAF5E5;
+    }
+
+    #LeftColumn .LeftColumn_Row_alt {
+        background-color: #FFFFFF;
+    }
+
+    #LeftColumn a.LinkStyle_left {
+        color: #006600;
+    }
+
+        #LeftColumn a.LinkStyle_left:hover {
+            background-color: #339900;
+            color: #FFFFFF;
+        }
+
+    #LeftColumn .list_bullet_green {
+        background-image: url(/style_indotd/images/green_bullet.gif);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+/*--CENTER COLUMN PART------------------------------------------------------------CENTER COLUMN--*/
+#CenterColumn {
+    background-color: #FFFFFF;
+    vertical-align: top;
+}
+
+    #CenterColumn .CenterColumn_Header {
+        background-color: #CCCCCC;
+        background-image: url(/images/bkg_header_grey.gif);
+    }
+
+    #CenterColumn .CenterColumn_Body {
+        background-color: #FFFFFF;
+    }
+
+    #CenterColumn .CenterColumn_Row_alt {
+        background-color: #F2F2F2;
+    }
+
+    #CenterColumn a.LinkStyle_center {
+        color: #333333;
+    }
+
+        #CenterColumn a.LinkStyle_center:visited {
+            color: #333333;
+        }
+
+        #CenterColumn a.LinkStyle_center:active {
+            color: #333333;
+        }
+
+        #CenterColumn a.LinkStyle_center:hover {
+            background-color: #999999;
+            color: #FFFFFF;
+        }
+
+    #CenterColumn .list_bullet_grey {
+        background-image: url(/style_indotd/images/grey_bullet.gif);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+/*--RIGHT COLUMN PART--------------------------------------------------------------RIGHT COLUMN--*/
+#RightColumn {
+    background-color: #FFFFFF;
+    vertical-align: top;
+}
+
+    #RightColumn .RightColumn_Header {
+        background-color: #3366CC;
+        background-image: url(/style_indotd/images/bkg_header_blue.gif);
+    }
+
+    #RightColumn .RightColumn_Body {
+        background-color: #D6E0F5;
+    }
+
+    #RightColumn .RightColumn_Row_alt {
+        background-color: #FFFFFF;
+    }
+
+    #RightColumn a.LinkStyle_right {
+        color: #3366CC;
+    }
+
+        #RightColumn a.LinkStyle_right:hover {
+            background-color: #3366cc;
+            color: #FFFFFF;
+        }
+
+    #RightColumn .list_bullet_blue {
+        background-image: url(/images/blue_bullet.gif);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    #RightColumn .RightColum_Row_NoLink {
+        font-size: 11px;
+        font-weight: bold;
+        height: 20px;
+        margin: 0px;
+        padding: 2px 5px 2px 5px;
+    }
+
+/*----MISC---------------------------------------------------------------------------------MISC--*/
+.float_left {
+    float: left;
+}
+
+.grey_spacer {
+    border-top: solid 1px #666666;
+}
+
+.grey_spacer1 {
+    border-bottom: solid 1px #cccccc;
+}
+
+.txt_format_1 {
+    color: #FFFFFF;
+    font-size: 11px;
+    font-weight: bold;
+    padding-left: 5px;
+    padding-top: 2px !important;
+    padding-top: 0px;
+}
+
+.txt_format_2, #BreadCrumbs a:link, #BreadCrumbs a:visited, #BreadCrumbs a:hover {
+    color: #666666;
+    font-size: 11px;
+    font-weight: bold;
+    padding-left: 5px;
+    text-decoration: none;
+}
+
+#BreadCrumbs a:hover {
+    text-decoration: underline;
+    color: #339900;
+}
+/*
+20150219 Changed breadcrumbs to include changes for href with no classes
+*/
+#BreadCrumbs a.noindent {
+    background-image: none;
+    padding-left: 5px !important;
+    margin-left: 0px;
+}
+
+.txt_format_2 #BreadcCrumbs {
+    padding-top: 13px;
+    height: 18px !important;
+    padding-top: 4px;
+    overflow: visible;
+}
+
+
+#GfxBar_Left {
+    background-image: url(/images/GfxBar_Main_Left_ex.jpg);
+    background-repeat: no-repeat;
+    float: left;
+    height: 50px !important;
+    height: 50px;
+    width: 260px
+}
+
+#GfxBar_Right {
+    background-image: url(/images/GfxBar_Main_Right_ex.jpg);
+    background-repeat: no-repeat;
+    float: right;
+    height: 50px !important;
+    height: 50px;
+    width: 492px;
+}
+
+#ToolBar {
+    width: 100%;
+}
+
+    #ToolBar #BreadCrumbs {
+        width: 867px;
+    }
+
+#BaseBar {
+    /*width: 952px;*/
+    width: 100%;
+}
+
+#Left {
+    height: 100%;
+}
+
+#ctl00_input_name {
+    background-color: white !important;
+    font-family: Arial;
+    font-size: 13.3333px;
+    color: black;
+}
+
+#ctl00_btnPHONESearch {
+    color: black;
+    background-color: rgb(221, 221, 221);
+    box-sizing: border-box;
+    padding: 1px 6px 1px 6px;
+    font-family: Arial;
+    font-size: 13.3333px;
+}
+
+
+/* We remove the margin, padding, and list style of UL and LI components */
+
+
+
+/* Clear float */
+.clear {
+    clear: both;
+}
+
+#header2 {
+    background-color: #f2f2f2;
+    background-image: url(/images/bkg_header_grey_big.gif);
+    background-position: bottom;
+    background-repeat: repeat-x;
+    border: solid 1px #666666;
+    color: #003399;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 2px 2px 2px 4px;
+    /*margin-right:-60px*/
+}
+
+#custom {
+    list-style-image: url(/images/blue_bullet.gif);
+    line-height: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+}
+/*To create vertical border bewteen two bootstrap columns*/
+.border-between > [class*='col-']:before {
+    background: green;
+    border: medium;
+    bottom: 0;
+    content: " ";
+    left: 0;
+    position: absolute;
+    width: 1px;
+    top: 0;
+    height: 88.3vh;
+}
+
+.border-between > [class*='col-']:first-child::before {
+    display: none;
+}
