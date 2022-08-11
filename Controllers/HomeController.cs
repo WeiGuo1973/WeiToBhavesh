@@ -196,7 +196,7 @@ namespace Audit.Controllers
             //catch (Exception em)
             //{
             //    em.ToString();
-            //    ViewBag.Message = "Sorry an error occurred sending the email, please try again";
+            // //   ViewBag.Message = "Sorry an error occurred sending the email, please try again";
             //}
 
             MailMessage msg = new MailMessage("no-reply@la.gov", emailAddress);
